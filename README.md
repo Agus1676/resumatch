@@ -1,108 +1,108 @@
 # Resumatch
 
-A simple, fast ATS (Applicant Tracking System) resume analyzer. Upload a PDF resume, paste a job description, and get instant feedback on keyword matches, strengths, and actionable suggestions to improve your application.
+Un analizador de CVs simple y rápido enfocado en sistemas ATS (Applicant Tracking System). Subí tu CV en formato PDF, pegá la descripción del puesto y obtené feedback instantáneo sobre palabras clave (keywords), fortalezas y sugerencias específicas para mejorar tu postulación.
 
-This project was built to help job seekers optimize their resumes against specific job postings before applying.
-
----
-
-## Features
-
-- **PDF Parsing:** Extracts text from uploaded PDF resumes.
-- **ATS Score Matching:** Calculates a match score (0-100%) based on job requirements.
-- **Keyword Analysis:** Compares your resume against the job description to find matching and missing key terms.
-- **Detailed Suggestions:** Actionable feedback on what to rewrite, add, or highlight.
-- **PDF Report Export:** Download a clean, formatted PDF copy of the analysis report.
-- **Analysis History:** Saves past analyses in a local SQLite database.
+Este proyecto fue desarrollado para ayudar a postulantes a optimizar sus CVs frente a ofertas de trabajo específicas antes de enviar su postulación.
 
 ---
 
-## Tech Stack
+## Características principales
+
+- **Lectura de PDF:** Extrae el texto del archivo PDF subido de forma automática.
+- **Score de compatibilidad ATS:** Calcula un porcentaje de coincidencia (0-100%) basado en los requerimientos del puesto.
+- **Análisis de palabras clave (Keywords):** Compara tu CV con la descripción del puesto para encontrar términos clave presentes y faltantes.
+- **Sugerencias de mejora:** Feedback directo sobre qué modificar, agregar o destacar.
+- **Exportación a PDF:** Descarga un reporte limpio y formateado con el análisis realizado.
+- **Historial de análisis:** Guarda los análisis anteriores en una base de datos local SQLite.
+
+---
+
+## Tecnologías utilizadas
 
 ### Frontend
 - **React 18** (Vite + TypeScript)
-- **Vanilla CSS** (custom dark theme inspired by premium dashboard interfaces)
-- **jsPDF** (client-side PDF generation)
-- **Axios** (API requests)
+- **Vanilla CSS** (diseño oscuro premium personalizado)
+- **jsPDF** (generación del reporte PDF del lado del cliente)
+- **Axios** (peticiones HTTP)
 
 ### Backend
 - **FastAPI** (Python 3.10+)
-- **google-genai** (Google Gemini 2.5 Flash API)
-- **SQLAlchemy** (SQLite database for storing history)
-- **pypdf** (pure-python PDF reader)
+- **google-genai** (SDK oficial para integrar la API de Google Gemini 2.5 Flash)
+- **SQLAlchemy** (base de datos SQLite para almacenar el historial)
+- **pypdf** (librería para procesar archivos PDF)
 
 ---
 
-## Setup & Running Locally
+## Configuración y ejecución en local
 
-### 1. Prerequisites
-- Python 3.10 or higher
+### 1. Requisitos previos
+- Python 3.10 o superior
 - Node.js (v18+)
-- A Gemini API Key (get one for free at Google AI Studio)
+- Una API Key de Gemini (se obtiene gratis en Google AI Studio)
 
-### 2. Backend Setup
-Go to the `backend` folder:
+### 2. Configurar el Backend
+Ingresá a la carpeta `backend`:
 ```bash
 cd backend
 ```
 
-Create a virtual environment and install dependencies:
+Creá un entorno virtual e instalá las dependencias:
 ```bash
 python -m venv venv
-# On Windows:
+# En Windows:
 venv\Scripts\activate
-# On macOS/Linux:
+# En macOS/Linux:
 source venv/bin/activate
 
 pip install -r requirements.txt
 ```
 
-Create a `.env` file in the `backend/` directory:
+Creá un archivo `.env` en la carpeta `backend/`:
 ```env
-GEMINI_API_KEY=your_gemini_api_key_here
+GEMINI_API_KEY=tu_api_key_aqui
 DATABASE_URL=sqlite:///./cv_analyzer.db
 ```
 
-Start the FastAPI server:
+Iniciá el servidor de FastAPI:
 ```bash
 uvicorn main:app --reload --port 8000
 ```
-The backend API docs will be available at `http://localhost:8000/docs`.
+La documentación interactiva de la API estará disponible en `http://localhost:8000/docs`.
 
-### 3. Frontend Setup
-Go to the `frontend` folder:
+### 3. Configurar el Frontend
+Ingresá a la carpeta `frontend`:
 ```bash
 cd ../frontend
 ```
 
-Install packages and start the dev server:
+Instalá los paquetes e iniciá el servidor de desarrollo:
 ```bash
 npm install
 npm run dev
 ```
-Open `http://localhost:5173` in your browser.
+Abrí `http://localhost:5173` en tu navegador.
 
 ---
 
-## Project Structure
+## Estructura del Proyecto
 
 ```
 cv-analyzer/
 ├── backend/
-│   ├── models/          # DB Schemas (SQLAlchemy)
-│   ├── routes/          # FastAPI router endpoints
-│   ├── services/        # PDF extraction & Gemini integration
-│   ├── main.py          # FastAPI application entrypoint
-│   └── database.py      # SQLite connection setup
+│   ├── models/          # Modelos de base de datos (SQLAlchemy)
+│   ├── routes/          # Endpoints de la API
+│   ├── services/        # Extracción de PDF e integración con Gemini
+│   ├── main.py          # Punto de entrada de FastAPI
+│   └── database.py      # Configuración de SQLite
 └── frontend/
     ├── src/
-    │   ├── components/  # ScoreCard, UploadZone, Panels
-    │   ├── pages/       # Home page layout
-    │   ├── services/    # Axios API & PDF export logic
-    │   └── index.css    # Global custom styling
+    │   ├── components/  # Componentes (ScoreCard, UploadZone, etc.)
+    │   ├── pages/       # Layout de la vista principal
+    │   ├── services/    # Conexión API y exportación a PDF
+    │   └── index.css    # Estilos globales personalizados
     └── package.json
 ```
 
 ---
 
-*Developed by Agustín Pollán.*
+*Desarrollado por Agustín Pollán.*
