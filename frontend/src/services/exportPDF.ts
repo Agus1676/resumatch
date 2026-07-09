@@ -22,27 +22,6 @@ export const exportToPDF = (result: AnalysisResponse): void => {
     if (y + needed > 270) addPage();
   };
 
-  const writeText = (
-    text: string,
-    x: number,
-    fontSize: number,
-    color: [number, number, number],
-    style: "normal" | "bold" = "normal",
-    maxWidth?: number
-  ) => {
-    doc.setFontSize(fontSize);
-    doc.setTextColor(...color);
-    doc.setFont("helvetica", style);
-    if (maxWidth) {
-      const lines = doc.splitTextToSize(text, maxWidth);
-      doc.text(lines, x, y);
-      return lines.length * (fontSize * 0.4);
-    } else {
-      doc.text(text, x, y);
-      return fontSize * 0.4;
-    }
-  };
-
   // ── HEADER ────────────────────────────────────────────────
   y = 0;
   // Gold header bar
@@ -211,7 +190,7 @@ export const exportToPDF = (result: AnalysisResponse): void => {
   });
 
   // ── FOOTER ────────────────────────────────────────────────
-  const totalPages = (doc.internal as { getNumberOfPages(): number }).getNumberOfPages();
+  const totalPages = doc.getNumberOfPages();
   for (let p = 1; p <= totalPages; p++) {
     doc.setPage(p);
     doc.setFontSize(8);
